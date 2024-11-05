@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 flex h-14 items-center border-b bg-background px-4 lg:px-6">
+    <header className="sticky top-0 z-40 flex h-14 items-center border-b bg-background px-4 lg:px-8">
       <div className="flex flex-1 items-center justify-end space-x-4">
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />
@@ -27,10 +27,7 @@ export function Header() {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="relative h-8 w-8 rounded-full"
-            >
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <User className="h-5 w-5" />
             </Button>
           </DropdownMenuTrigger>
