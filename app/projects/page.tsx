@@ -1,41 +1,65 @@
-"use client";
-
-import { useState } from "react";
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ProjectGrid } from "@/components/projects/project-grid";
-import { ProjectList } from "@/components/projects/project-list";
-import { ViewToggle } from "@/components/projects/view-toggle";
-import { CreateProject } from "@/components/projects/create-project";
-
 export default function ProjectsPage() {
-  const [view, setView] = useState<"grid" | "list">("grid");
-  const [showCreateDialog, setShowCreateDialog] = useState(false);
-
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">プロジェクト</h1>
-          <p className="text-sm text-muted-foreground">
-            プロジェクトの作成、管理、進捗の確認ができます
-          </p>
-        </div>
-        <div className="flex items-center gap-4">
-          <ViewToggle view={view} onViewChange={setView} />
-          <Button onClick={() => setShowCreateDialog(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            新規プロジェクト
-          </Button>
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold">プロジェクト</h1>
+        <p className="text-sm text-muted-foreground">
+          進行中のプロジェクトと進捗状況を管理します
+        </p>
       </div>
-
-      {view === "grid" ? <ProjectGrid /> : <ProjectList />}
-
-      <CreateProject
-        open={showCreateDialog}
-        onOpenChange={setShowCreateDialog}
-      />
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className="rounded-lg border bg-card p-6"
+          >
+            <div>
+              <h3 className="font-semibold">{project.name}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {project.description}
+              </p>
+            </div>
+            <div className="mt-4">
+              <div className="h-2 rounded-full bg-muted">
+                <div
+                  className="h-full rounded-full bg-primary"
+                  style={{ width: `${project.progress}%` }}
+                />
+              </div>
+              <div className="mt-2 flex items-center justify-between text-sm">
+                <span>{project.progress}% 完了</span>
+                <span className="text-muted-foreground">
+                  メンバー: {project.members}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
+
+const projects = [
+  {
+    id: "1",
+    name: "ECサイトリニューアル",
+    description: "既存ECサイトのUI/UX改善とパフォーマンス最適化",
+    progress: 75,
+    members: 8,
+  },
+  {
+    id: "2",
+    name: "モバイルアプリ開発",
+    description: "クロスプラットフォーム対応のモバイルアプリケーション",
+    progress: 30,
+    members: 6,
+  },
+  {
+    id: "3",
+    name: "社内システム刷新",
+    description: "レガシーシステムの最新化とクラウド移行",
+    progress: 15,
+    members: 12,
+  },
+];
